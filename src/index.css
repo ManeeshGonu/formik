@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input,
+textarea {
+  @apply border border-gray-200  backdrop-blur-0 focus:outline-none rounded-md p-2 w-full shadow-sm;
+}
+
+label {
+  @apply font-medium;
+}
+
+button {
+  @apply bg-gray-600 mt-4 px-4 py-2 rounded-md text-slate-100 shadow-md;
+}
+
+.error {
+  @apply text-red-700;
+}

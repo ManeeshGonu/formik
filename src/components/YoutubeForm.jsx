@@ -10,6 +10,10 @@ const YoutubeForm = () => {
     channel: "",
     comments: "",
     address: "",
+    social: {
+      facebook: "",
+      twitter: "",
+    },
   };
 
   const onSubmit = (values) => {
@@ -22,6 +26,10 @@ const YoutubeForm = () => {
     channel: Yup.string().required("Required!"),
     address: Yup.string().required("Required!"),
     comments: Yup.string().required("Required!"),
+    social: Yup.object({
+      facebook: Yup.string().required("Required!"),
+      twitter: Yup.string().required("Required!"),
+    }),
   });
 
   // console.log("Form Values", formik.values);
@@ -66,7 +74,7 @@ const YoutubeForm = () => {
             />
             <ErrorMessage name="comments">
               {(errorMsg) => {
-                return <div className="error">{errorMsg}</div>; 
+                return <div className="error">{errorMsg}</div>;
               }}
             </ErrorMessage>
           </div>
@@ -87,6 +95,27 @@ const YoutubeForm = () => {
               }}
             </Field>
           </div>
+          <div className="w-full">
+            <label htmlFor="facebook">Facebook</label>
+            <Field
+              type="text"
+              id="facebook"
+              name="social.facebook"
+              placeholder="Facebook Id"
+            />
+            <ErrorMessage name="social.facebook" component={TextError} />
+          </div>
+          <div className="w-full">
+            <label htmlFor="twitter">Twitter</label>
+            <Field
+              type="text"
+              id="twitter"
+              name="social.twitter"
+              placeholder="Twitter Id"
+            />
+            <ErrorMessage name="social.twitter" component={TextError} />
+          </div>
+
           <button type="submit">Submit</button>
         </Form>
       </Formik>

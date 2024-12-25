@@ -19,8 +19,8 @@ const YoutubeForm = () => {
     let errors = {};
 
     if (!values.name) errors.name = "Required";
-    if (!values.name) {
-      errors.name = "Required";
+    if (!values.email) {
+      errors.email = "Required";
     } else if (
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(values.email)
     ) {
@@ -39,6 +39,7 @@ const YoutubeForm = () => {
   });
 
   // console.log("Form Values", formik.values);
+  console.log("Form Errors", formik.errors);
 
   return (
     <form
@@ -54,6 +55,9 @@ const YoutubeForm = () => {
           onChange={formik.handleChange}
           value={formik.values.name}
         />
+        {formik.errors.name ? (
+          <div className="error">*{formik.errors.name}</div>
+        ) : null}
       </div>
       <div className="w-1/2">
         <label htmlFor="email">Email</label>
@@ -64,6 +68,9 @@ const YoutubeForm = () => {
           onChange={formik.handleChange}
           value={formik.values.email}
         />
+        {formik.errors.email ? (
+          <div className="error">*{formik.errors.email}</div>
+        ) : null}
       </div>
       <div className="w-1/2">
         <label htmlFor="channel">Channel</label>
@@ -74,6 +81,9 @@ const YoutubeForm = () => {
           onChange={formik.handleChange}
           value={formik.values.channel}
         />
+        {formik.errors.channel ? (
+          <div className="error">*{formik.errors.channel}</div>
+        ) : null}
       </div>
       <button type="submit">Submit</button>
     </form>

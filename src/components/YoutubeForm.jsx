@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 
 const YoutubeForm = () => {
@@ -12,8 +12,6 @@ const YoutubeForm = () => {
   const onSubmit = (values) => {
     console.log("Form Data", values);
   };
-
-  // const validate = (values) => {
   //   //values.name, values.email, values.channel
   //   //errors.name, errors.email, errors.channel
 
@@ -39,18 +37,17 @@ const YoutubeForm = () => {
     channel: Yup.string().required("Required!"),
   });
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
-
   // console.log("Form Values", formik.values);
   // console.log("Form Errors", formik.errors);
   // console.log("Visited Fields", formik.touched);
 
   return (
-    <div className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5">
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+      className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5"
+    >
       <form
         onSubmit={formik.handleSubmit}
         className="flex flex-col items-center gap-2"
@@ -93,7 +90,7 @@ const YoutubeForm = () => {
         </div>
         <button type="submit">Submit</button>
       </form>
-    </div>
+    </Formik>
   );
 };
 

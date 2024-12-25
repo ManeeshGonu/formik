@@ -14,6 +14,7 @@ const YoutubeForm = () => {
       facebook: "",
       twitter: "",
     },
+    phoneNumbers: ["", ""],
   };
 
   const onSubmit = (values) => {
@@ -30,6 +31,10 @@ const YoutubeForm = () => {
       facebook: Yup.string().required("Required!"),
       twitter: Yup.string().required("Required!"),
     }),
+    phoneNumbers: Yup.array()
+      .of(Yup.string().required("Required!"))
+      .required("Phone numbers are required!")
+      .min(2, "You must provide both primary and secondary phone numbers."),
   });
 
   // console.log("Form Values", formik.values);
@@ -114,6 +119,26 @@ const YoutubeForm = () => {
               placeholder="Twitter Id"
             />
             <ErrorMessage name="social.twitter" component={TextError} />
+          </div>
+          <div className="w-full">
+            <label htmlFor="primaryPh">Primary Phone</label>
+            <Field
+              type="text"
+              id="primaryPh"
+              name="phoneNumbers[0]"
+              placeholder="Primary Phone Number"
+            />
+            <ErrorMessage name="phoneNumbers[0]" component={TextError} />
+          </div>
+          <div className="w-full">
+            <label htmlFor="secondaryPh">Secondary Phone</label>
+            <Field
+              type="text"
+              id="secondaryPh"
+              name="phoneNumbers[1]"
+              placeholder="Secondary Phone Number"
+            />
+            <ErrorMessage name="phoneNumbers[1]" component={TextError} />
           </div>
 
           <button type="submit">Submit</button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 const YoutubeForm = () => {
@@ -48,8 +48,7 @@ const YoutubeForm = () => {
       onSubmit={onSubmit}
       className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5"
     >
-      <form
-        onSubmit={formik.handleSubmit}
+      <Form
         className="flex flex-col items-center gap-2"
       >
         <div className="w-full">
@@ -89,7 +88,7 @@ const YoutubeForm = () => {
           ) : null}
         </div>
         <button type="submit">Submit</button>
-      </form>
+      </Form>
     </Formik>
   );
 };

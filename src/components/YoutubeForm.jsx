@@ -1,5 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray, FastField } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -48,6 +55,8 @@ const YoutubeForm = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
         <Form className="flex flex-col items-center gap-2 w-1/2">
           <div className="w-full">
@@ -88,7 +97,7 @@ const YoutubeForm = () => {
           <div className="w-full">
             <FastField name="address">
               {(props) => {
-                console.log("Field Render")
+                console.log("Field Render");
                 const { field, form, meta } = props;
                 return (
                   <div>
@@ -149,6 +158,7 @@ const YoutubeForm = () => {
                 const { form, push, remove } = fieldArrayProps;
                 const { values } = form;
                 const { phNumbers } = values;
+                console.log("Form errors", form.errors);
                 return (
                   <div className="flex flex-col gap-4">
                     {phNumbers.map((each, index) => (

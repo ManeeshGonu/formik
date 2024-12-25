@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -15,6 +15,7 @@ const YoutubeForm = () => {
       twitter: "",
     },
     phoneNumbers: ["", ""],
+    phNumbers: [""],
   };
 
   const onSubmit = (values) => {
@@ -139,6 +140,41 @@ const YoutubeForm = () => {
               placeholder="Secondary Phone Number"
             />
             <ErrorMessage name="phoneNumbers[1]" component={TextError} />
+          </div>
+          <div className="w-full">
+            <label htmlFor="phNumbers">List of Phone Numbers</label>
+            <FieldArray name="phNumbers">
+              {(fieldArrayProps) => {
+                const { form, push, remove } = fieldArrayProps;
+                const { values } = form;
+                const { phNumbers } = values;
+                return (
+                  <div className="flex flex-col gap-4">
+                    {phNumbers.map((each, index) => (
+                      <div key={index} className="flex items-center gap-1">
+                        <Field name={`phNumbers[${index}]`} />
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            className="mt-0"
+                            onClick={() => remove(index)}
+                          >
+                            -
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="mt-0"
+                          onClick={() => push("")}
+                        >
+                          +
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }}
+            </FieldArray>
           </div>
 
           <button type="submit">Submit</button>

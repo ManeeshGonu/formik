@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const YoutubeForm = () => {
@@ -42,51 +42,32 @@ const YoutubeForm = () => {
   // console.log("Visited Fields", formik.touched);
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-      className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5"
-    >
-      <Form
-        className="flex flex-col items-center gap-2"
+    <div className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
       >
-        <div className="w-full">
-          <label htmlFor="name">Name</label>
-          <Field
-            type="text"
-            id="name"
-            name="name"
-          />
-          {formik.touched.name && formik.errors.name ? (
-            <div className="error">*{formik.errors.name}</div>
-          ) : null}
-        </div>
-        <div className="w-full">
-          <label htmlFor="email">Email</label>
-          <Field
-            type="email"
-            id="email"
-            name="email"
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="error">*{formik.errors.email}</div>
-          ) : null}
-        </div>
-        <div className="w-full">
-          <label htmlFor="channel">Channel</label>
-          <Field
-            type="text"
-            id="channel"
-            name="channel"
-          />
-          {formik.touched.channel && formik.errors.channel ? (
-            <div className="error">*{formik.errors.channel}</div>
-          ) : null}
-        </div>
-        <button type="submit">Submit</button>
-      </Form>
-    </Formik>
+        <Form className="flex flex-col items-center gap-2 w-1/2">
+          <div className="w-full">
+            <label htmlFor="name">Name</label>
+            <Field type="text" id="name" name="name" />
+            <ErrorMessage name="name" />
+          </div>
+          <div className="w-full">
+            <label htmlFor="email">Email</label>
+            <Field type="email" id="email" name="email" />
+            <ErrorMessage name="email" />
+          </div>
+          <div className="w-full">
+            <label htmlFor="channel">Channel</label>
+            <Field type="text" id="channel" name="channel" />
+            <ErrorMessage name="channel" />
+          </div>
+          <button type="submit">Submit</button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 

@@ -34,7 +34,6 @@ const YoutubeForm = () => {
     email: Yup.string().email("Invalid email format").required("Required!"),
     channel: Yup.string().required("Required!"),
     address: Yup.string().required("Required!"),
-    comments: Yup.string().required("Required!"),
     social: Yup.object({
       facebook: Yup.string().required("Required!"),
       twitter: Yup.string().required("Required!"),
@@ -44,6 +43,15 @@ const YoutubeForm = () => {
       .required("Phone numbers are required!")
       .min(2, "You must provide both primary and secondary phone numbers."),
   });
+
+  const validateComment = (value) => {
+    let error;
+    if (!value) {
+      error = "Required";
+    }
+
+    return error;
+  };
 
   // console.log("Form Values", formik.values);
   // console.log("Form Errors", formik.errors);
@@ -56,7 +64,7 @@ const YoutubeForm = () => {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         validateOnChange={false}
-        validateOnBlur={false}
+        // validateOnBlur={false}
       >
         <Form className="flex flex-col items-center gap-2 w-1/2">
           <div className="w-full">
@@ -86,12 +94,9 @@ const YoutubeForm = () => {
               id="comments"
               name="comments"
               placeholder="comments"
+              validate={validateComment}
             />
-            <ErrorMessage name="comments">
-              {(errorMsg) => {
-                return <div className="error">{errorMsg}</div>;
-              }}
-            </ErrorMessage>
+            <ErrorMessage name="comments" component={TextError} />
           </div>
 
           <div className="w-full">

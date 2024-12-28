@@ -232,8 +232,10 @@ const YoutubeForm = () => {
 
                 <button
                   type="submit"
-                  disabled={!formik.isValid}
-                  className={`${!formik.isValid ? "bg-gray-400" : ""} `}
+                  disabled={!(formik.dirty && formik.isValid)}
+                  className={`${
+                    !(formik.dirty && formik.isValid) ? "bg-gray-400" : ""
+                  } `}
                 >
                   Submit
                 </button>

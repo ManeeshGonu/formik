@@ -44,6 +44,8 @@ const YoutubeForm = () => {
   const onSubmit = (values, onSubmitProps) => {
     console.log("Form Data", values);
     onSubmitProps.setSubmitting(false);
+    // setFormData(null);
+    onSubmitProps.resetForm({ values: initialValues });
   };
 
   const validationSchema = Yup.object({
@@ -251,6 +253,7 @@ const YoutubeForm = () => {
                 <button type="button" onClick={() => setFormData(savedData)}>
                   Load Saved Data
                 </button>
+                <button type="reset">Reset</button>
                 <button
                   type="submit"
                   disabled={!formik.isValid || formik.isSubmitting}

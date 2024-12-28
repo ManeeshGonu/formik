@@ -66,135 +66,172 @@ const YoutubeForm = () => {
         validateOnChange={false}
         // validateOnBlur={false}
       >
-        <Form className="flex flex-col items-center gap-2 w-1/2">
-          <div className="w-full">
-            <label htmlFor="name">Name</label>
-            <Field type="text" id="name" name="name" />
-            <ErrorMessage name="name" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="email">Email</label>
-            <Field type="email" id="email" name="email" />
-            <ErrorMessage name="email" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="channel">Channel</label>
-            <Field
-              type="text"
-              id="channel"
-              name="channel"
-              placeholder="Channel name"
-            />
-            <ErrorMessage name="channel" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="comments">Comments</label>
-            <Field
-              as="textarea"
-              id="comments"
-              name="comments"
-              placeholder="comments"
-              validate={validateComment}
-            />
-            <ErrorMessage name="comments" component={TextError} />
-          </div>
+        {(formik) => {
+          console.log("formik props", formik);
+          return (
+            <Form className="flex flex-col items-center gap-2 w-1/2">
+              <div className="w-full">
+                <label htmlFor="name">Name</label>
+                <Field type="text" id="name" name="name" />
+                <ErrorMessage name="name" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="email">Email</label>
+                <Field type="email" id="email" name="email" />
+                <ErrorMessage name="email" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="channel">Channel</label>
+                <Field
+                  type="text"
+                  id="channel"
+                  name="channel"
+                  placeholder="Channel name"
+                />
+                <ErrorMessage name="channel" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="comments">Comments</label>
+                <Field
+                  as="textarea"
+                  id="comments"
+                  name="comments"
+                  placeholder="comments"
+                  validate={validateComment}
+                />
+                <ErrorMessage name="comments" component={TextError} />
+              </div>
 
-          <div className="w-full">
-            <FastField name="address">
-              {(props) => {
-                console.log("Field Render");
-                const { field, form, meta } = props;
-                return (
-                  <div>
-                    <label htmlFor="address">Address</label>
-                    <input id="address" {...field} />
-                    {meta.touched && meta.error ? (
-                      <div className="error">{meta.error}</div>
-                    ) : null}
-                  </div>
-                );
-              }}
-            </FastField>
-          </div>
-          <div className="w-full">
-            <label htmlFor="facebook">Facebook</label>
-            <Field
-              type="text"
-              id="facebook"
-              name="social.facebook"
-              placeholder="Facebook Id"
-            />
-            <ErrorMessage name="social.facebook" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="twitter">Twitter</label>
-            <Field
-              type="text"
-              id="twitter"
-              name="social.twitter"
-              placeholder="Twitter Id"
-            />
-            <ErrorMessage name="social.twitter" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="primaryPh">Primary Phone</label>
-            <Field
-              type="text"
-              id="primaryPh"
-              name="phoneNumbers[0]"
-              placeholder="Primary Phone Number"
-            />
-            <ErrorMessage name="phoneNumbers[0]" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="secondaryPh">Secondary Phone</label>
-            <Field
-              type="text"
-              id="secondaryPh"
-              name="phoneNumbers[1]"
-              placeholder="Secondary Phone Number"
-            />
-            <ErrorMessage name="phoneNumbers[1]" component={TextError} />
-          </div>
-          <div className="w-full">
-            <label htmlFor="phNumbers">List of Phone Numbers</label>
-            <FieldArray name="phNumbers">
-              {(fieldArrayProps) => {
-                const { form, push, remove } = fieldArrayProps;
-                const { values } = form;
-                const { phNumbers } = values;
-                console.log("Form errors", form.errors);
-                return (
-                  <div className="flex flex-col gap-4">
-                    {phNumbers.map((each, index) => (
-                      <div key={index} className="flex items-center gap-1">
-                        <Field name={`phNumbers[${index}]`} />
-                        {index > 0 && (
-                          <button
-                            type="button"
-                            className="mt-0"
-                            onClick={() => remove(index)}
-                          >
-                            -
-                          </button>
-                        )}
-                        <button
-                          type="button"
-                          className="mt-0"
-                          onClick={() => push("")}
-                        >
-                          +
-                        </button>
+              <div className="w-full">
+                <FastField name="address">
+                  {(props) => {
+                    console.log("Field Render");
+                    const { field, form, meta } = props;
+                    return (
+                      <div>
+                        <label htmlFor="address">Address</label>
+                        <input id="address" {...field} />
+                        {meta.touched && meta.error ? (
+                          <div className="error">{meta.error}</div>
+                        ) : null}
                       </div>
-                    ))}
-                  </div>
-                );
-              }}
-            </FieldArray>
-          </div>
+                    );
+                  }}
+                </FastField>
+              </div>
+              <div className="w-full">
+                <label htmlFor="facebook">Facebook</label>
+                <Field
+                  type="text"
+                  id="facebook"
+                  name="social.facebook"
+                  placeholder="Facebook Id"
+                />
+                <ErrorMessage name="social.facebook" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="twitter">Twitter</label>
+                <Field
+                  type="text"
+                  id="twitter"
+                  name="social.twitter"
+                  placeholder="Twitter Id"
+                />
+                <ErrorMessage name="social.twitter" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="primaryPh">Primary Phone</label>
+                <Field
+                  type="text"
+                  id="primaryPh"
+                  name="phoneNumbers[0]"
+                  placeholder="Primary Phone Number"
+                />
+                <ErrorMessage name="phoneNumbers[0]" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="secondaryPh">Secondary Phone</label>
+                <Field
+                  type="text"
+                  id="secondaryPh"
+                  name="phoneNumbers[1]"
+                  placeholder="Secondary Phone Number"
+                />
+                <ErrorMessage name="phoneNumbers[1]" component={TextError} />
+              </div>
+              <div className="w-full">
+                <label htmlFor="phNumbers">List of Phone Numbers</label>
+                <FieldArray name="phNumbers">
+                  {(fieldArrayProps) => {
+                    const { form, push, remove } = fieldArrayProps;
+                    const { values } = form;
+                    const { phNumbers } = values;
+                    // console.log("Form errors", form.errors);
+                    return (
+                      <div className="flex flex-col gap-4">
+                        {phNumbers.map((each, index) => (
+                          <div key={index} className="flex items-center gap-1">
+                            <Field name={`phNumbers[${index}]`} />
+                            {index > 0 && (
+                              <button
+                                type="button"
+                                className="mt-0"
+                                onClick={() => remove(index)}
+                              >
+                                -
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              className="mt-0"
+                              onClick={() => push("")}
+                            >
+                              +
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }}
+                </FieldArray>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => formik.setFieldTouched("comments")}
+                >
+                  Visit Comments
+                </button>
+                <button
+                  type="button"
+                  onClick={() => formik.validateField("comments")}
+                >
+                  Validate Comments
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    formik.setTouched({
+                      name: true,
+                      email: true,
+                      channel: true,
+                      comments: true,
+                    })
+                  }
+                >
+                  Visit All
+                </button>
+                <button type="button" onClick={() => formik.validateForm()}>
+                  Validate All
+                </button>
+              </div>
 
-          <button type="submit">Submit</button>
-        </Form>
+              <button type="submit">Submit</button>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

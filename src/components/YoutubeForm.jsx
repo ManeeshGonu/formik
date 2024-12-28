@@ -58,18 +58,17 @@ const YoutubeForm = () => {
   // console.log("Visited Fields", formik.touched);
 
   return (
-    <div className="w-1/2 mx-auto min-h-screen flex flex-col justify-center items-center space-y-5">
+    <div className="mx-auto min-h-screen flex flex-col justify-center items-center space-y-5">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
-        validateOnChange={false}
-        // validateOnBlur={false}
+        // validateOnMount
       >
         {(formik) => {
           console.log("formik props", formik);
           return (
-            <Form className="flex flex-col items-center gap-2 w-1/2">
+            <Form className="grid grid-cols-3 gap-4">
               <div className="w-full">
                 <label htmlFor="name">Name</label>
                 <Field type="text" id="name" name="name" />
@@ -195,40 +194,50 @@ const YoutubeForm = () => {
                   }}
                 </FieldArray>
               </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => formik.setFieldTouched("comments")}
-                >
-                  Visit Comments
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formik.validateField("comments")}
-                >
-                  Validate Comments
-                </button>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    formik.setTouched({
-                      name: true,
-                      email: true,
-                      channel: true,
-                      comments: true,
-                    })
-                  }
-                >
-                  Visit All
-                </button>
-                <button type="button" onClick={() => formik.validateForm()}>
-                  Validate All
-                </button>
-              </div>
+              <div className="col-span-3 flex flex-col justify-center items-center">
+                <div>
+                  <button
+                    type="button"
+                    className="mr-2"
+                    onClick={() => formik.setFieldTouched("comments")}
+                  >
+                    Visit Comments
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => formik.validateField("comments")}
+                  >
+                    Validate Comments
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="mr-2"
+                    onClick={() =>
+                      formik.setTouched({
+                        name: true,
+                        email: true,
+                        channel: true,
+                        comments: true,
+                      })
+                    }
+                  >
+                    Visit All
+                  </button>
+                  <button type="button" onClick={() => formik.validateForm()}>
+                    Validate All
+                  </button>
+                </div>
 
-              <button type="submit">Submit</button>
+                <button
+                  type="submit"
+                  disabled={!formik.isValid}
+                  className={`${!formik.isValid ? "bg-gray-400" : ""} `}
+                >
+                  Submit
+                </button>
+              </div>
             </Form>
           );
         }}

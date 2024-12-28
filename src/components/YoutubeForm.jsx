@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Formik,
   Form,
@@ -11,6 +11,8 @@ import * as Yup from "yup";
 import TextError from "./TextError";
 
 const YoutubeForm = () => {
+  const [formData, setFormData] = useState(null);
+
   const initialValues = {
     name: "",
     email: "",
@@ -23,6 +25,20 @@ const YoutubeForm = () => {
     },
     phoneNumbers: ["", ""],
     phNumbers: [""],
+  };
+
+  const savedData = {
+    name: "Maneesh",
+    email: "gonumaneesh@gmail.com",
+    channel: "ManeeshGonu",
+    comments: "Welcome to channel",
+    address: "Tenali, Andhra Pradesh",
+    social: {
+      facebook: "Maneesh Gonu",
+      twitter: "ManeeshGonu04",
+    },
+    phoneNumbers: ["8790579282", "9515961667"],
+    phNumbers: ["9999999999"],
   };
 
   const onSubmit = (values, onSubmitProps) => {
@@ -61,9 +77,10 @@ const YoutubeForm = () => {
   return (
     <div className="mx-auto min-h-screen flex flex-col justify-center items-center space-y-5">
       <Formik
-        initialValues={initialValues}
+        initialValues={formData || initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        enableReinitialize
         // validateOnMount
       >
         {(formik) => {
@@ -231,6 +248,9 @@ const YoutubeForm = () => {
                   </button>
                 </div>
 
+                <button type="button" onClick={() => setFormData(savedData)}>
+                  Load Saved Data
+                </button>
                 <button
                   type="submit"
                   disabled={!formik.isValid || formik.isSubmitting}
